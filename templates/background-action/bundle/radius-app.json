@@ -3,7 +3,7 @@
   "apiVersion": "radius.apps/1",
   "id": "dev.radius.template.background-action",
   "name": "Captured Page",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Read only the title and URL of an explicitly captured tab, with no UI or persistence.",
   "worker": { "entry": "worker.js" },
   "instances": { "mode": "none", "stateSchemaVersion": 1 },

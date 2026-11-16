@@ -7,7 +7,10 @@ are experimental; local test success is not a native-readiness claim.
 
 ## Set up the standalone repository
 
-Use Node 22 or newer and pnpm 10.24 or newer. From the repository root:
+Use Node 22 or newer and pnpm 10.24 or newer. The canonical public source
+repository is
+[sandbox-technologies/radius-apps](https://github.com/sandbox-technologies/radius-apps),
+licensed under [MIT](../LICENSE). From the repository root:
 
 ```sh
 pnpm install --ignore-scripts --frozen-lockfile
@@ -42,6 +45,7 @@ apps/reading-queue/
   README.md                Usage, permissions, and current limitations
   CHANGELOG.md             App-version history
   bundle/
+    LICENSE                MIT notice included in the installed bundle
     radius-app.json        Schema-2 public runtime manifest
     worker.js              Local worker exports
     ui/                    Local view HTML, JavaScript, and CSS
@@ -105,10 +109,11 @@ pnpm app install my-hello
 ```
 
 Creation produces a new `apps/my-hello` directory and a local app identity.
-It does not overwrite an existing app. Edit the generated metadata, author name,
-app name/ID, README and changelog before review. Update view copy too; a generated
-manifest name is not a universal search-and-replace of runtime assets. App IDs
-identify installations and must remain stable after release.
+It does not overwrite an existing app. Templates preserve their MIT metadata and
+packaged `bundle/LICENSE`; retain those notices. Edit the generated metadata,
+author name, app name/ID, README and changelog before review. Update view copy too;
+a generated manifest name is not a universal search-and-replace of runtime
+assets. App IDs identify installations and must remain stable after release.
 
 Choose one of three independent templates:
 
@@ -136,7 +141,9 @@ native gaps, and keep `status: "experimental"` until native evidence is reviewed
 All initial screenshot arrays are empty because no native captures have been
 verified. Do not manufacture screenshots or claim a mock view is native evidence.
 
-Read [CONTRIBUTING.md](../CONTRIBUTING.md). `UNLICENSED` is intentionally pending
-an owner decision; this walkthrough does not authorize publication, a license
-grant, signing, pushing, or a GitHub change. Contribution checks and maintainer
-release/signing are separate workflows; see [releasing](releasing.md).
+Read [CONTRIBUTING.md](../CONTRIBUTING.md). Public MIT source publication is
+approved; native readiness, signing, independent publisher trust and catalog
+deployment remain separate app-distribution gates. This walkthrough does not
+perform a push, release, installation, permission grant or schedule change.
+Contribution checks and maintainer release/signing are separate workflows; see
+[releasing](releasing.md).

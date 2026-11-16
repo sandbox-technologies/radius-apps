@@ -4,10 +4,15 @@ The standalone home for curated Radius apps, runnable examples and developer
 templates. Apps use the public `radius.apps/1` contract; they do not import
 browser internals. Radius owns execution, permissions, profiles and persistence.
 
-**Experimental, pre-publication scaffold.** The repository owner and open-source
-license still need approval. `UNLICENSED` is a deliberate publication gate, not
-an open-source license. No public repository, deployed catalog or trusted
-publisher is created by checking out or running this project.
+The canonical public source repository is
+[sandbox-technologies/radius-apps](https://github.com/sandbox-technologies/radius-apps).
+The source, reference apps, templates and generated SDK are licensed under
+[MIT](LICENSE); each app/template bundle includes its own license notice.
+
+App distribution remains experimental. No signed/catalog release or catalog
+deployment exists, no trusted publisher keys are configured, and no live Radius
+UI validation has been completed. Public source publication does not remove
+those distribution gates or enable blocked host capabilities.
 
 ## Start here
 
@@ -70,12 +75,14 @@ Read [CONTRIBUTING.md](CONTRIBUTING.md), [the public contract](docs/app-contract
 [permissions](docs/permissions.md), and [testing](docs/testing.md).
 
 Contributions are reviewed as pull requests. CI validates and tests without
-signing credentials. A separate protected maintainer workflow creates immutable
-Ed25519-signed bundles and signed source provenance, then builds the hosted
-catalog input. GitHub source is not itself an installable trusted release, and
-curation never replaces the user's permission consent.
+signing credentials. A separate maintainer workflow is provided for immutable
+Ed25519-signed bundles, signed source provenance and hosted catalog input; its
+protected signing environment and independent trust configuration still require
+setup and approval. GitHub source is not itself an installable trusted release,
+and curation never replaces the user's permission consent.
 
 Read [release operations](docs/releasing.md) and the
-[publication checklist](PUBLISHING.md) before making this repository public.
+[publication checklist](PUBLISHING.md) for the separate source-publication and
+app-distribution requirements.
 Personal/local apps do not need to be published here. Report security issues
 using [SECURITY.md](SECURITY.md).

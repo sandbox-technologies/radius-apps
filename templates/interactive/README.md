@@ -34,4 +34,6 @@ node --test templates/interactive/test/*.test.mjs
 
 These are trusted local worker/DOM-double tests, not a security sandbox or native
 bridge check. Screenshots are empty because no native capture has been verified.
-`UNLICENSED` awaits an explicit owner decision; this template grants no license.
+Version `0.1.1` includes the [MIT license](bundle/LICENSE). Retain the notice in
+apps created from this template. Source publication does not establish native
+readiness or create a signed/catalog release.

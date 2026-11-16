@@ -4,7 +4,7 @@
   "title": "Reading Queue",
   "summary": "Save supplied or explicitly captured page metadata to a private, revisioned queue.",
   "status": "experimental",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "authors": [{ "name": "Radius Apps contributors" }],
   "categories": ["productivity", "reading"],
   "screenshots": []

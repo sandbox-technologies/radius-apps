@@ -3,7 +3,7 @@
   "apiVersion": "radius.apps/1",
   "id": "dev.radius.template.scheduled-agent",
   "name": "Daily Report",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A restricted previous-local-day report descriptor. Native generation is currently unavailable.",
   "instances": { "mode": "single", "stateSchemaVersion": 1 },
   "configurationSchema": {

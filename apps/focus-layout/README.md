@@ -3,7 +3,8 @@
 An experimental, stateless action app. `split` requests a right-hand split of a
 captured tab. `splitAndDraft` declares a future split-then-unsent-draft contract.
 There is no view, instance storage, schedule, message submission, or agent call.
-The bundle retains `dev.radius.focus-layout` version `1.0.0`.
+The bundle retains `dev.radius.focus-layout` and is version `1.0.1`; the patch
+version adds the packaged MIT license without changing runtime behavior.
 
 ## Current limitation
 
@@ -47,5 +48,6 @@ future draft port, denial, and partial effects. They do not demonstrate that
 native draft support exists or verify the host's pre-admission rejection.
 
 `screenshots` is empty because native capture has not been performed. No mock
-screenshot is presented as native evidence. `UNLICENSED` remains a licensing
-placeholder; no publication or license grant is implied.
+screenshot is presented as native evidence. The app is licensed under
+[MIT](bundle/LICENSE). Source publication does not establish native readiness or
+create a signed/catalog release, and the draft action remains blocked.

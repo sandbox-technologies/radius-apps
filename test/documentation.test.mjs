@@ -29,7 +29,7 @@ test('contributor documentation links resolve inside the standalone repository',
       assert(!local.startsWith(`..${sep}`) && local !== '..', `Link escapes standalone repo in ${path}`);
       await assert.doesNotReject(stat(target), `${relative(root, path)} links to missing ${link}`);
     }
-    assert(!content.includes('/Users/quentin/'), `Documentation must not depend on the author's checkout: ${path}`);
+    assert(!/\/(?:Users|home)\/[^/\s]+\//.test(content), `Documentation must not depend on the author's checkout: ${path}`);
   }
 });
 

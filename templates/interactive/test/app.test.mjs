@@ -9,7 +9,7 @@ import { greet } from '../bundle/worker.js'
 const manifest = parseAppManifest(parseAppJson(await readFile(new URL('../bundle/radius-app.json', import.meta.url), 'utf8')))
 
 test('interactive template packages its complete local worker/view assets', async () => {
-  const paths = ['radius-app.json', 'worker.js', 'ui/index.html', 'ui/app.js', 'ui/styles.css']
+  const paths = ['LICENSE', 'radius-app.json', 'worker.js', 'ui/index.html', 'ui/app.js', 'ui/styles.css']
   const files = Object.fromEntries(await Promise.all(paths.map(async path => [path,
     (await readFile(new URL(`../bundle/${path}`, import.meta.url))).toString('base64'),
   ])))

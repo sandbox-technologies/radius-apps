@@ -8,7 +8,7 @@ import { split, splitAndDraft } from '../bundle/worker.js'
 const manifest = parseAppManifest(parseAppJson(await readFile(new URL('../bundle/radius-app.json', import.meta.url), 'utf8')))
 
 test('Focus Layout bundle keeps split and unavailable draft requirements separate', async () => {
-  const files = Object.fromEntries(await Promise.all(['radius-app.json', 'worker.js'].map(async path => [path,
+  const files = Object.fromEntries(await Promise.all(['LICENSE', 'radius-app.json', 'worker.js'].map(async path => [path,
     (await readFile(new URL(`../bundle/${path}`, import.meta.url))).toString('base64'),
   ])))
   assert.equal(validateAppBundleFiles(files).manifest.id, 'dev.radius.focus-layout')

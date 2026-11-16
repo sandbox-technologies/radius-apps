@@ -288,7 +288,7 @@ test('the real provided templates scaffold, validate, build and pass their trust
     await writeSnapshotFiles(destination, await snapshotDirectoryFiles(join(repo, 'templates', template)));
     const created = await createApp(root, `real-${template}`, template);
     assert.equal(created.manifest.id, `local.real-${template}`);
-    assert.equal(created.metadata.license, 'UNLICENSED');
+    assert.equal(created.metadata.license, 'MIT');
     for (const name of await fs.readdir(join(created.directory, 'test'))) if (name.endsWith('.test.mjs')) testFiles.push(join(created.directory, 'test', name));
   }
   assert.equal((await validateApps(root)).length, 3);

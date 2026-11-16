@@ -125,5 +125,6 @@ explicit authorization, timezone/day-boundary tests, and artifact/delivery check
 Screenshots must be actual reviewed captures without unrelated private data.
 Empty arrays are preferable to mock screenshots labeled as native operation.
 Only mark `ready` after the required evidence is reviewed; schema tests alone
-cannot justify it. Publication and licensing approval are separate gates even
-after runtime testing succeeds.
+cannot justify it. MIT source publication is approved, but it does not satisfy
+native readiness, signing, independent publisher trust or catalog deployment.
+Those app-distribution gates remain separate even after local testing succeeds.

@@ -3,7 +3,7 @@
   "apiVersion": "radius.apps/1",
   "id": "dev.radius.reading-queue",
   "name": "Reading Queue",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Save explicitly selected pages to a private, revisioned reading queue.",
   "worker": { "entry": "worker.js" },
   "instances": { "mode": "multiple", "stateSchemaVersion": 1 },

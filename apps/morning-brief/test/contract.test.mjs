@@ -7,7 +7,7 @@ import { validateAppBundleFiles } from '@radius/apps-sdk/release'
 const manifest = parseAppManifest(parseAppJson(await readFile(new URL('../bundle/radius-app.json', import.meta.url), 'utf8')))
 
 test('Morning Brief is a packaged agent descriptor, not an executable worker or provider client', async () => {
-  const files = Object.fromEntries(await Promise.all(['radius-app.json', 'prompts/brief.md'].map(async path => [path,
+  const files = Object.fromEntries(await Promise.all(['LICENSE', 'radius-app.json', 'prompts/brief.md'].map(async path => [path,
     (await readFile(new URL(`../bundle/${path}`, import.meta.url))).toString('base64'),
   ])))
   assert.equal(validateAppBundleFiles(files).manifest.id, 'dev.radius.morning-brief')
@@ -60,6 +60,6 @@ test('the packaged prompt states data, HTML, no-network and separate-delivery co
   // Text checks are not an agent safety evaluation. Native generation remains blocked.
   const metadata = parseAppJson(await readFile(new URL('../app.json', import.meta.url), 'utf8'))
   assert.equal(metadata.status, 'experimental')
-  assert.equal(metadata.license, 'UNLICENSED')
+  assert.equal(metadata.license, 'MIT')
   assert.deepEqual(metadata.screenshots, [])
 })

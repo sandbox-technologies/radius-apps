@@ -32,4 +32,6 @@ Run the template tests directly with
 against a local mock host and validate schemas; they do not establish native
 capture or sandbox safety. Native verification is pending. Screenshots are
 empty because no native capture was performed and this action has no view.
-`UNLICENSED` is a placeholder pending the owner's licensing decision.
+Version `0.1.1` includes the [MIT license](bundle/LICENSE). Retain the notice in
+apps created from this template. Source publication does not establish native
+readiness or create a signed/catalog release.

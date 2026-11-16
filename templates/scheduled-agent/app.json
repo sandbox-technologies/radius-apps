@@ -4,7 +4,7 @@
   "title": "Daily Report",
   "summary": "A disabled-by-default schedule and restricted-agent contract; native generation remains blocked.",
   "status": "experimental",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "authors": [{ "name": "Radius Apps contributors" }],
   "categories": ["starter", "reports"],
   "screenshots": []

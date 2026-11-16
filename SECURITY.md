@@ -10,10 +10,14 @@ must not execute contributor app modules or package hooks with signing secrets.
 
 ## Reporting
 
-The public security contact and repository private-vulnerability reporting must
-be configured before launch. Until then, report concerns directly to the repo
-owner through an existing private channel. Do not create a public issue with
-exploitation steps, keys or user data. No monitored email address is claimed here.
+Private vulnerability reporting is enabled for the canonical
+`sandbox-technologies/radius-apps` repository. Use
+[Report a vulnerability](https://github.com/sandbox-technologies/radius-apps/security/advisories/new)
+or open the repository's **Security** tab and select **Report a vulnerability**.
+
+If you cannot access private reporting, contact the repository owner through an
+existing private channel. Do not create a public issue with exploitation steps,
+keys or user data. No monitored email address is claimed here.
 
 ## Withdrawal
 

@@ -3,8 +3,9 @@
 An experimental interactive app with private state per instance. `add` saves
 title/URL text supplied by the caller; `addSelectedPage` reads a captured tab's
 title/URL; `list` reads the queue. It does not fetch, open, or execute saved URLs.
-The bundle retains the upstream app ID `dev.radius.reading-queue` and version
-`1.0.0` from the authored Radius v2 example.
+The bundle retains the upstream app ID `dev.radius.reading-queue` from the
+authored Radius v2 example. Version `1.0.1` adds the packaged MIT license without
+changing runtime behavior.
 
 ## Local development
 
@@ -63,5 +64,5 @@ See [testing](../../docs/testing.md) before claiming native readiness.
 
 `screenshots` is intentionally empty: no verified native screenshot has been
 captured, and a mock rendering would not be evidence of native operation.
-`UNLICENSED` is a placeholder pending the owner's licensing decision; this
-extraction grants no license and is not authorization to publish.
+The app is licensed under [MIT](bundle/LICENSE). Source publication does not
+establish native readiness or create a signed/catalog release.

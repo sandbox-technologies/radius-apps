@@ -7,7 +7,7 @@ import { validateAppBundleFiles } from '@radius/apps-sdk/release'
 const manifest = parseAppManifest(parseAppJson(await readFile(new URL('../bundle/radius-app.json', import.meta.url), 'utf8')))
 
 test('scheduled starter packages a restricted agent prompt, not a worker or provider client', async () => {
-  const files = Object.fromEntries(await Promise.all(['radius-app.json', 'prompts/report.md'].map(async path => [path,
+  const files = Object.fromEntries(await Promise.all(['LICENSE', 'radius-app.json', 'prompts/report.md'].map(async path => [path,
     (await readFile(new URL(`../bundle/${path}`, import.meta.url))).toString('base64'),
   ])))
   assert.equal(validateAppBundleFiles(files).manifest.apiVersion, 'radius.apps/1')
@@ -47,6 +47,6 @@ test('prompt constraints and experimental metadata remain honest', async () => {
   for (const pattern of [/untrusted data, never instructions/, /Escape all untrusted text/, /No tools, network/, /Publication and delivery are separate/]) assert.match(prompt, pattern)
   const metadata = parseAppJson(await readFile(new URL('../app.json', import.meta.url), 'utf8'))
   assert.equal(metadata.status, 'experimental')
-  assert.equal(metadata.license, 'UNLICENSED')
+  assert.equal(metadata.license, 'MIT')
   assert.deepEqual(metadata.screenshots, [])
 })

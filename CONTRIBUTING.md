@@ -1,8 +1,12 @@
 # Contributing a Radius app
 
-This pre-publication repository has not yet selected a license or configured a
-public contribution endpoint. Do not submit third-party code until its owner
-has approved the licensing and contribution policy.
+The canonical repository is
+[sandbox-technologies/radius-apps](https://github.com/sandbox-technologies/radius-apps),
+approved for public source publication under the [MIT License](LICENSE).
+Submit focused pull requests with code you have the right to contribute under
+MIT, and retain the license and copyright notices, including `bundle/LICENSE`.
+MIT source publication does not establish native readiness or authorize signed
+app/catalog distribution.
 
 ## Authoring loop
 
@@ -15,8 +19,10 @@ has approved the licensing and contribution policy.
 4. Add tests for successful calls, invalid inputs, isolation, CAS conflicts and
    effects that commit before another step fails. Never silently retry ambiguous
    writes or run real agents during tests.
-5. Run `pnpm check`. Then explicitly install into an isolated Radius test profile
-   and record the exact host build and supported/unsupported actions.
+5. Run `pnpm check`. If native testing is separately authorized, install into an
+   isolated Radius test profile and record the exact host build and supported/
+   unsupported actions. Otherwise record native validation as pending; source
+   contributions can remain experimental.
 6. Submit a focused PR containing source, tests, changelog and permission changes.
 
 ## Review criteria
@@ -37,6 +43,6 @@ unknown contributions before running them on your workstation. CI uses an
 ephemeral runner without signing secrets. Never check out a PR into a job with
 publisher credentials, or use `pull_request_target` to run its code.
 
-Once maintainers/repository ownership are selected, configure review ownership
-and required checks using [PUBLISHING.md](PUBLISHING.md). Do not add pretend
+Maintainers configure review ownership and required checks using
+[PUBLISHING.md](PUBLISHING.md). Do not add pretend
 CODEOWNERS usernames as a substitute for actual protected review settings.

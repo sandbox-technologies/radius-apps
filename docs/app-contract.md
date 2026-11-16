@@ -18,7 +18,7 @@ initial apps and templates use exactly this shape:
   "title": "My App",
   "summary": "A short, honest description.",
   "status": "experimental",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "authors": [{ "name": "Your name" }],
   "categories": ["productivity"],
   "screenshots": []
@@ -26,10 +26,11 @@ initial apps and templates use exactly this shape:
 ```
 
 The slug matches the directory. Status is `experimental` or `ready`; current
-examples remain experimental. Do not change the license placeholder without an
-owner decision. Screenshots name local image assets when verified captures
-exist; an empty list is intentional until then. Metadata grants no runtime
-permission and does not establish signed release provenance.
+examples remain experimental. MIT is the approved license for the repository,
+reference apps and templates. Each bundle includes its own `LICENSE`; retain
+that notice when copying a template. Screenshots name local image assets when
+verified captures exist; an empty list is intentional until then. Metadata and
+source licensing grant no runtime permission or signed release provenance.
 
 The runtime manifest instead describes a stable reverse-domain app ID, name,
 semantic version, instance model, configuration schema, named requirements, and

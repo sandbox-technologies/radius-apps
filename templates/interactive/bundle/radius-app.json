@@ -3,7 +3,7 @@
   "apiVersion": "radius.apps/1",
   "id": "dev.radius.template.interactive",
   "name": "Hello App",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A permission-free greeting action with a local interactive view.",
   "worker": { "entry": "worker.js" },
   "instances": { "mode": "none", "stateSchemaVersion": 1 },

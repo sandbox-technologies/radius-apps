@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "license": "UNLICENSED",
+  "license": "MIT",
+  "repository": { "type": "git", "url": "git+https://github.com/sandbox-technologies/radius-apps.git" },
   "engines": { "node": ">=22" },
   "packageManager": "pnpm@10.24.0",
   "scripts": {

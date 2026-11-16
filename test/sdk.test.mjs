@@ -16,6 +16,9 @@ test('vendored public SDK output hashes match the recorded distribution', async 
   const pkg = JSON.parse(await readFile(new URL('package.json', root), 'utf8'))
   assert.equal(pkg.scripts, undefined)
   assert.equal(pkg.dependencies, undefined)
+  assert.equal(pkg.license, 'MIT')
+  assert.equal(source.sourceTreeDirty, false)
+  assert.equal(await readFile(new URL('LICENSE', root), 'utf8'), await readFile(new URL('../LICENSE', import.meta.url), 'utf8'))
 })
 
 test('public JSON helpers reject duplicate/prototype keys and canonicalize data', () => {

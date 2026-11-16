@@ -41,13 +41,13 @@ function localHost({ value = null, revision = 0, page, failAt } = {}) {
 }
 
 test('Reading Queue bundle validates through the public SDK', async () => {
-  const paths = ['radius-app.json', 'worker.js', 'ui/index.html', 'ui/app.js', 'ui/styles.css']
+  const paths = ['LICENSE', 'radius-app.json', 'worker.js', 'ui/index.html', 'ui/app.js', 'ui/styles.css']
   const files = Object.fromEntries(await Promise.all(paths.map(async path => [path,
     (await readFile(new URL(`../bundle/${path}`, import.meta.url))).toString('base64'),
   ])))
   const bundle = validateAppBundleFiles(files)
   assert.equal(bundle.manifest.id, 'dev.radius.reading-queue')
-  assert.equal(bundle.manifest.version, '1.0.0')
+  assert.equal(bundle.manifest.version, '1.0.1')
   assert.equal(bundle.digest, appBundleDigest(files))
   assert.equal(bundle.manifest.instances.mode, 'multiple')
   assert.deepEqual(bundle.manifest.provides.triggers, {})

@@ -3,7 +3,7 @@
   "apiVersion": "radius.apps/1",
   "id": "dev.radius.focus-layout",
   "name": "Focus Layout",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Split a captured tab without an agent. The declared draft variant is unavailable on the current experimental native host.",
   "worker": { "entry": "worker.js" },
   "instances": { "mode": "none", "stateSchemaVersion": 1 },

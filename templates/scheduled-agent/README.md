@@ -37,5 +37,7 @@ Run original template tests with
 `node --test templates/scheduled-agent/test/*.test.mjs`. These validate the bundle,
 prompt and schemas only; no model is invoked and no report is generated. Native
 budget, scheduler, artifact and delivery tests belong to the host. No verified
-screenshots exist, so `screenshots` stays empty. `UNLICENSED` is a placeholder,
-not a license grant or publication approval.
+screenshots exist, so `screenshots` stays empty. Version `0.1.1` includes the
+[MIT license](bundle/LICENSE); retain the notice in generated apps. Source
+publication does not enable generation, schedules or delivery, and no
+signed/catalog release exists.

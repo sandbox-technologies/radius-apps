@@ -6,8 +6,9 @@ advertises generation as unavailable. `generate` must fail with
 `CAPABILITY_UNAVAILABLE`; this app provides no fake report, ordinary-chat
 fallback, alternate provider, or broader runner.
 
-This is a schema-valid agent-only bundle, retaining `dev.radius.morning-brief`
-version `1.0.0`. It contains a prompt, not a JavaScript worker or a provider SDK.
+This schema-valid agent-only bundle retains the `dev.radius.morning-brief` app
+ID. Version `1.0.1` includes the packaged MIT license. It contains a prompt, not
+a JavaScript worker or a provider SDK.
 Validation/build can run locally. They do not execute the agent.
 
 ## Local development
@@ -59,5 +60,6 @@ simulate successful native generation. Native budget enforcement, scheduling,
 artifact sanitization/presentation, and delivery remain host integration work.
 
 `screenshots` is intentionally empty: no native generation or report capture
-has been verified. `UNLICENSED` is a placeholder, not permission to publish or
-reuse under an invented license.
+has been verified. The app is licensed under [MIT](bundle/LICENSE). Source
+publication does not enable generation, schedules or delivery, and no
+signed/catalog release exists.

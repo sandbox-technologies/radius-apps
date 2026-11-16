@@ -1,20 +1,26 @@
 # Release operations
 
-Nothing is published or trusted by bootstrapping this repository. The root, app
-metadata and vendored SDK currently say `UNLICENSED`: **signing and catalog
-publication are blocked**. An owner must decide licensing/rights, repository
-identity, maintainers, host support/readiness, and independent public-key trust
-before any release. Do not "fix" a gate by silently choosing a license or key.
-Unsigned preparation is allowed with pending licenses. No screenshots, native
-launch, models, permissions or schedules are required by these commands.
+The canonical public source repository is
+[sandbox-technologies/radius-apps](https://github.com/sandbox-technologies/radius-apps),
+approved for source publication under [MIT](../LICENSE). The app/template bundles
+and generated SDK include MIT notices. That resolves the source-license decision,
+not the separate approval and configuration needed for signed app distribution.
+
+No signed/catalog release, catalog deployment, configured trusted publisher keys
+or live Radius UI validation exists. Apps remain experimental; generation and the
+Focus Layout draft action remain blocked. The original readiness, signing, trust
+and deployment limitations apply to app distribution, not MIT source publication.
+Unsigned preparation is an offline step. No screenshots, native launch, models,
+permissions or schedules are required by these commands.
 
 ## Trust boundaries
 
 `prepare` snapshots data and checks every bundle byte against a full, local Git
 commit. It requires clean `HEAD` (including untracked files), tracked metadata,
 and an explicitly supplied credential-free HTTPS repository identity matching
-`remote.origin.url`. It never fetches. Configure a real remote only after owner
-approval; a fresh repository without commits/origin cannot claim provenance.
+`remote.origin.url`. It never fetches. The approved canonical identity is
+`https://github.com/sandbox-technologies/radius-apps`; a fresh repository without
+commits/origin cannot claim provenance.
 Use a clean release checkout with reviewed tools. Do not use a contributor's
 modified release tooling as your signer.
 
@@ -38,8 +44,9 @@ are implemented.
 ## Offline commands
 
 After dependencies were installed with `pnpm install --ignore-scripts
---frozen-lockfile`, use Node directly. `REPO_URL`, `COMMIT`, `PUBLISHER`, `KEY_ID`
-and paths below are explicit operator choices, not examples of approved values.
+--frozen-lockfile`, use Node directly. For the canonical repository, set `REPO_URL`
+to `https://github.com/sandbox-technologies/radius-apps`. `COMMIT`, `PUBLISHER`,
+`KEY_ID` and paths below remain explicit operator choices, not approved values.
 Use a full 40- or 64-character commit hash, never a branch/tag. Create private
 external work/key directories yourself; do not put key material in this repo.
 
@@ -162,10 +169,11 @@ Before enabling it, owners must:
    `RADIUS_APPS_KEY_ID` and independently reviewed
    `RADIUS_APPS_CATALOG_STATE_SHA256`; and environment-only secret
    `RADIUS_APPS_ED25519_PRIVATE_KEY_PEM`. Provision reviewed public keys separately.
-4. Resolve all license gates, regenerate the SDK from a clean committed upstream,
-   review app readiness/permissions and unsupported native/agent behavior, then
-   dispatch the exact reviewed default-branch commit. Approvers check that SHA
-   and artifact digest before authorizing the environment.
+4. Verify MIT declarations and packaged notices, the clean upstream SDK export,
+   app readiness/permissions and unsupported native/agent behavior, then dispatch
+   only the exact reviewed default-branch commit. License rejection gates for
+   missing or `UNLICENSED` declarations remain intact. Approvers check the source
+   SHA and artifact digest before authorizing the environment.
 5. Review the output, provision the website catalog separately, archive source
    provenance, preserve the new baseline files, and advance the independently
    stored baseline hash before the next release. This repo has no deployment job.

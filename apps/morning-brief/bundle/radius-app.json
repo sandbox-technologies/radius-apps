@@ -3,7 +3,7 @@
   "apiVersion": "radius.apps/1",
   "id": "dev.radius.morning-brief",
   "name": "Morning Brief",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A manually invoked or explicitly scheduled brief from approved previous-local-day activity, published as an immutable HTML artifact.",
   "instances": { "mode": "single", "stateSchemaVersion": 1 },
   "configurationSchema": {
