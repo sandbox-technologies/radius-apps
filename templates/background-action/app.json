@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "slug": "background-action",
+  "title": "Captured Page",
+  "summary": "An explicitly invoked, view-free action that reads only captured title and URL metadata.",
+  "status": "experimental",
+  "license": "UNLICENSED",
+  "authors": [{ "name": "Radius Apps contributors" }],
+  "categories": ["starter"],
+  "screenshots": []
+}

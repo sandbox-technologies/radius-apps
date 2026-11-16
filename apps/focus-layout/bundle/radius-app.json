@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 2,
+  "apiVersion": "radius.apps/1",
+  "id": "dev.radius.focus-layout",
+  "name": "Focus Layout",
+  "version": "1.0.0",
+  "description": "Split a captured tab without an agent. The declared draft variant is unavailable on the current experimental native host.",
+  "worker": { "entry": "worker.js" },
+  "instances": { "mode": "none", "stateSchemaVersion": 1 },
+  "configurationSchema": { "type": "object", "properties": {}, "additionalProperties": false },
+  "requires": {
+    "layout": { "capability": "tabs.layout", "scope": { "target": "invocation" } },
+    "draft": { "capability": "chat.draft", "scope": { "target": "invocation" } }
+  },
+  "provides": {
+    "actions": {
+      "split": {
+        "title": "Split selected tab to the right",
+        "contexts": ["tab"],
+        "inputSchema": { "type": "object", "properties": {}, "additionalProperties": false },
+        "outputSchema": {
+          "type": "object",
+          "properties": { "split": { "type": "boolean", "const": true } },
+          "required": ["split"],
+          "additionalProperties": false
+        },
+        "requires": ["layout"],
+        "implementation": { "kind": "handler", "export": "split" }
+      },
+      "splitAndDraft": {
+        "title": "Split and prepare a draft",
+        "description": "Intended contract: split, then create an unsent draft at a separately captured destination. Currently unavailable before admission because the native draft primitive is not implemented.",
+        "contexts": ["tab"],
+        "inputSchema": {
+          "type": "object",
+          "properties": { "text": { "type": "string", "minLength": 1, "maxLength": 8000 } },
+          "required": ["text"],
+          "additionalProperties": false
+        },
+        "outputSchema": {
+          "type": "object",
+          "properties": { "split": { "type": "boolean", "const": true }, "draft": { "type": "boolean", "const": true } },
+          "required": ["split", "draft"],
+          "additionalProperties": false
+        },
+        "requires": ["layout", "draft"],
+        "implementation": { "kind": "handler", "export": "splitAndDraft" }
+      }
+    },
+    "views": {},
+    "events": {},
+    "triggers": {}
+  }
+}

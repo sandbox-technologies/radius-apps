@@ -1,0 +1,22 @@
+{
+  "name": "@radius/apps-sdk",
+  "version": "0.1.0-experimental.1",
+  "type": "module",
+  "license": "UNLICENSED",
+  "description": "Generated public Radius Apps authoring contract",
+  "engines": {
+    "node": ">=22"
+  },
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "default": "./index.js"
+    },
+    "./release": {
+      "types": "./release.d.ts",
+      "default": "./release.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "sideEffects": false
+}

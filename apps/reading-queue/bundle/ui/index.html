@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Reading Queue</title>
+    <link rel="stylesheet" href="styles.css">
+    <script type="module" src="app.js"></script>
+  </head>
+  <body>
+    <main>
+      <header>
+        <p class="eyebrow">A small place for later</p>
+        <h1>Reading Queue</h1>
+        <p>Private to this app instance. Shared by its views and CLI actions.</p>
+      </header>
+      <section aria-labelledby="add-heading">
+        <h2 id="add-heading">Add to your queue</h2>
+        <form id="add-form">
+          <label for="page-title">Page title</label>
+          <input id="page-title" name="title" type="text" maxlength="500" placeholder="Something worth reading">
+          <label for="page-url">Page address</label>
+          <div class="controls">
+            <input id="page-url" name="url" type="url" required maxlength="8000" placeholder="https://example.com/article">
+            <button type="submit">Add page</button>
+          </div>
+          <p class="note">Saves only what you enter. No page is fetched or opened.</p>
+        </form>
+      </section>
+      <section aria-labelledby="save-heading">
+        <h2 id="save-heading">Save a selected page</h2>
+        <p>This view never reads the focused tab. Supply a fresh context handle captured by Radius for this caller.</p>
+        <form id="save-form">
+          <label for="context">Captured context handle</label>
+          <div class="controls">
+            <input id="context" name="context" type="text" required autocomplete="off" placeholder="context_…" aria-describedby="context-note">
+            <button id="save" type="submit">Save page</button>
+          </div>
+          <p id="context-note" class="note">Handles are caller-bound. A handle issued to the CLI cannot be transferred to this view.</p>
+        </form>
+      </section>
+      <section aria-labelledby="queue-heading">
+        <div class="section-heading">
+          <h2 id="queue-heading">Saved pages</h2>
+          <button id="refresh" type="button">Refresh</button>
+        </div>
+        <p id="revision" class="note"></p>
+        <ol id="items"></ol>
+        <p id="empty" hidden>No pages yet. Save a captured page here or use the CLI with this instance.</p>
+      </section>
+      <p id="status" role="status" aria-live="polite">Connecting to the app host…</p>
+    </main>
+  </body>
+</html>

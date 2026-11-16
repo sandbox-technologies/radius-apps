@@ -1,0 +1,20 @@
+{
+  "name": "radius-apps",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "UNLICENSED",
+  "engines": { "node": ">=22" },
+  "packageManager": "pnpm@10.24.0",
+  "scripts": {
+    "app": "node tooling/apps.mjs",
+    "validate": "node tooling/apps.mjs validate",
+    "build": "node tooling/apps.mjs build",
+    "test": "node --test test/*.test.mjs apps/*/test/*.test.mjs templates/*/test/*.test.mjs",
+    "check": "pnpm validate && pnpm test && pnpm build",
+    "release:prepare": "node tooling/release.mjs prepare",
+    "release:sign": "node tooling/release.mjs sign",
+    "catalog:build": "node tooling/release.mjs catalog"
+  },
+  "dependencies": { "@radius/apps-sdk": "file:vendor/apps-sdk" }
+}

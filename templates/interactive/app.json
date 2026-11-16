@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "slug": "interactive",
+  "title": "Hello App",
+  "summary": "A minimal permission-free worker and document-bound interactive view.",
+  "status": "experimental",
+  "license": "UNLICENSED",
+  "authors": [{ "name": "Radius Apps contributors" }],
+  "categories": ["starter"],
+  "screenshots": []
+}

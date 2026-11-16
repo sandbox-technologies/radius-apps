@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "slug": "scheduled-agent",
+  "title": "Daily Report",
+  "summary": "A disabled-by-default schedule and restricted-agent contract; native generation remains blocked.",
+  "status": "experimental",
+  "license": "UNLICENSED",
+  "authors": [{ "name": "Radius Apps contributors" }],
+  "categories": ["starter", "reports"],
+  "screenshots": []
+}

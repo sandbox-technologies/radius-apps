@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 2,
+  "apiVersion": "radius.apps/1",
+  "id": "dev.radius.reading-queue",
+  "name": "Reading Queue",
+  "version": "1.0.0",
+  "description": "Save explicitly selected pages to a private, revisioned reading queue.",
+  "worker": { "entry": "worker.js" },
+  "instances": { "mode": "multiple", "stateSchemaVersion": 1 },
+  "configurationSchema": {
+    "type": "object",
+    "properties": { "title": { "type": "string", "minLength": 1, "maxLength": 120 } },
+    "required": ["title"],
+    "additionalProperties": false
+  },
+  "requires": {
+    "queueState": { "capability": "storage.instance", "scope": { "instance": "self" } },
+    "selectedPage": { "capability": "tabs.read", "scope": { "target": "invocation", "fields": ["title", "url"] } }
+  },
+  "provides": {
+    "actions": {
+      "add": {
+        "title": "Save a page address",
+        "description": "Save title and URL supplied explicitly by the caller, without reading any browser tab.",
+        "contexts": ["app"],
+        "inputSchema": {
+          "type": "object",
+          "properties": { "title": { "type": "string", "maxLength": 500 }, "url": { "type": "string", "minLength": 1, "maxLength": 8000 } },
+          "required": ["title", "url"],
+          "additionalProperties": false
+        },
+        "outputSchema": {
+          "type": "object",
+          "properties": { "revision": { "type": "integer", "minimum": 0 } },
+          "required": ["revision"],
+          "additionalProperties": false
+        },
+        "requires": ["queueState"],
+        "implementation": { "kind": "handler", "export": "add" }
+      },
+      "addSelectedPage": {
+        "title": "Save selected page",
+        "description": "Append the captured page to this queue. A stale revision fails without overwriting another writer.",
+        "contexts": ["tab"],
+        "inputSchema": { "type": "object", "properties": {}, "additionalProperties": false },
+        "outputSchema": {
+          "type": "object",
+          "properties": { "revision": { "type": "integer", "minimum": 0 } },
+          "required": ["revision"],
+          "additionalProperties": false
+        },
+        "requires": ["queueState", "selectedPage"],
+        "implementation": { "kind": "handler", "export": "addSelectedPage" }
+      },
+      "list": {
+        "title": "List saved pages",
+        "contexts": ["app"],
+        "inputSchema": { "type": "object", "properties": {}, "additionalProperties": false },
+        "outputSchema": {
+          "type": "object",
+          "properties": {
+            "revision": { "type": "integer", "minimum": 0 },
+            "items": {
+              "type": "array",
+              "maxItems": 500,
+              "items": {
+                "type": "object",
+                "properties": { "title": { "type": "string" }, "url": { "type": "string" } },
+                "required": ["title", "url"],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": ["revision", "items"],
+          "additionalProperties": false
+        },
+        "requires": ["queueState"],
+        "implementation": { "kind": "handler", "export": "list" }
+      }
+    },
+    "views": { "main": { "title": "Reading Queue", "entry": "ui/index.html", "placement": "tab" } },
+    "events": {
+      "changed": {
+        "payloadSchema": {
+          "type": "object",
+          "properties": { "revision": { "type": "integer", "minimum": 0 } },
+          "required": ["revision"],
+          "additionalProperties": false
+        }
+      }
+    },
+    "triggers": {}
+  }
+}

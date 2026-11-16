@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "slug": "focus-layout",
+  "title": "Focus Layout",
+  "summary": "Split an explicitly captured tab. The optional draft action is blocked on native support.",
+  "status": "experimental",
+  "license": "UNLICENSED",
+  "authors": [{ "name": "Radius Apps contributors" }],
+  "categories": ["productivity", "tabs"],
+  "screenshots": []
+}

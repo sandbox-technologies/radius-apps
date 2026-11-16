@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 2,
+  "apiVersion": "radius.apps/1",
+  "id": "dev.radius.morning-brief",
+  "name": "Morning Brief",
+  "version": "1.0.0",
+  "description": "A manually invoked or explicitly scheduled brief from approved previous-local-day activity, published as an immutable HTML artifact.",
+  "instances": { "mode": "single", "stateSchemaVersion": 1 },
+  "configurationSchema": {
+    "type": "object",
+    "properties": {
+      "title": { "type": "string", "minLength": 1, "maxLength": 120 },
+      "timeZone": { "type": "string", "minLength": 1, "maxLength": 100 }
+    },
+    "required": ["title", "timeZone"],
+    "additionalProperties": false
+  },
+  "requires": {
+    "activity": { "capability": "activity.read", "scope": { "source": "conversation-metadata", "fields": ["title", "createdAt", "updatedAt"], "days": 1 } },
+    "generation": { "capability": "agent.run", "scope": { "profile": "restricted-generation" } },
+    "reports": { "capability": "artifacts.write", "scope": { "owner": "self" } },
+    "openReports": { "capability": "artifacts.open", "scope": { "owner": "self" } }
+  },
+  "provides": {
+    "actions": {
+      "generate": {
+        "title": "Generate Morning Brief",
+        "contexts": ["app"],
+        "inputSchema": { "type": "object", "properties": {}, "additionalProperties": false },
+        "outputSchema": {
+          "type": "object",
+          "properties": { "artifactId": { "type": "string", "minLength": 1 } },
+          "required": ["artifactId"],
+          "additionalProperties": false
+        },
+        "requires": ["activity", "generation", "reports"],
+        "implementation": {
+          "kind": "agent",
+          "prompt": "prompts/brief.md",
+          "profile": "restricted-generation",
+          "context": [{ "requirement": "activity", "selector": "previous-local-day" }],
+          "result": "html-artifact"
+        }
+      }
+    },
+    "views": {},
+    "events": {},
+    "triggers": {
+      "morning": { "kind": "schedule", "action": "generate", "input": {}, "suggested": { "localTime": "08:30" } }
+    }
+  }
+}

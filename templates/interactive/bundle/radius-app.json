@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 2,
+  "apiVersion": "radius.apps/1",
+  "id": "dev.radius.template.interactive",
+  "name": "Hello App",
+  "version": "0.1.0",
+  "description": "A permission-free greeting action with a local interactive view.",
+  "worker": { "entry": "worker.js" },
+  "instances": { "mode": "none", "stateSchemaVersion": 1 },
+  "configurationSchema": { "type": "object", "properties": {}, "additionalProperties": false },
+  "requires": {},
+  "provides": {
+    "actions": {
+      "greet": {
+        "title": "Say hello",
+        "contexts": ["app"],
+        "inputSchema": {
+          "type": "object",
+          "properties": { "name": { "type": "string", "minLength": 1, "maxLength": 120 } },
+          "required": ["name"],
+          "additionalProperties": false
+        },
+        "outputSchema": {
+          "type": "object",
+          "properties": { "message": { "type": "string", "minLength": 1, "maxLength": 128 } },
+          "required": ["message"],
+          "additionalProperties": false
+        },
+        "requires": [],
+        "implementation": { "kind": "handler", "export": "greet" }
+      }
+    },
+    "views": { "main": { "title": "Hello App", "entry": "ui/index.html", "placement": "tab" } },
+    "events": {},
+    "triggers": {}
+  }
+}

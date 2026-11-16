@@ -1,0 +1,33 @@
+name: Validate app contributions (untrusted)
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    # No environment, secrets, cache, release artifact or privileged follow-up.
+    # Tests are arbitrary contributor JavaScript, NOT a security sandbox.
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+          submodules: false
+          lfs: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '22'
+      - name: Install dependencies without lifecycle hooks
+        run: |
+          corepack enable
+          corepack prepare pnpm@10.24.0 --activate
+          pnpm install --ignore-scripts --frozen-lockfile
+      - name: Validate, test and build with no signing authority
+        run: pnpm check

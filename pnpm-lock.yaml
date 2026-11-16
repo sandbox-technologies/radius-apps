@@ -1,0 +1,23 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .:
+    dependencies:
+      '@radius/apps-sdk':
+        specifier: file:vendor/apps-sdk
+        version: file:vendor/apps-sdk
+
+packages:
+
+  '@radius/apps-sdk@file:vendor/apps-sdk':
+    resolution: {directory: vendor/apps-sdk, type: directory}
+    engines: {node: '>=22'}
+
+snapshots:
+
+  '@radius/apps-sdk@file:vendor/apps-sdk': {}

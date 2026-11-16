@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hello App</title>
+    <link rel="stylesheet" href="styles.css">
+    <script type="module" src="app.js"></script>
+  </head>
+  <body>
+    <main>
+      <h1>Hello App</h1>
+      <p>A worker action, a local view, and no requested permissions.</p>
+      <form id="hello-form">
+        <label for="name">Your name</label>
+        <input id="name" name="name" type="text" required maxlength="120" autocomplete="off">
+        <button id="greet" type="submit" disabled>Say hello</button>
+      </form>
+      <p id="result" role="status" aria-live="polite">Connecting to the app host…</p>
+    </main>
+  </body>
+</html>

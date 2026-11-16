@@ -1,0 +1,132 @@
+name: Prepare and sign reviewed app (no deployment)
+
+on:
+  workflow_dispatch:
+    inputs:
+      app:
+        description: Reviewed app slug
+        type: string
+        required: true
+      reviewed_commit:
+        description: Full reviewed commit; MUST equal this workflow's default-branch commit
+        type: string
+        required: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: radius-apps-release
+  cancel-in-progress: false
+
+jobs:
+  prepare:
+    if: github.ref == format('refs/heads/{0}', github.event.repository.default_branch) && inputs.reviewed_commit == github.sha
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      APP: ${{ inputs.app }}
+      REVIEWED_COMMIT: ${{ github.sha }}
+      REPOSITORY: https://github.com/${{ github.repository }}
+      PUBLISHER: ${{ vars.RADIUS_APPS_PUBLISHER_ID }}
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+          fetch-depth: 1
+          submodules: false
+          lfs: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '22'
+      - name: Install without hooks, then test (no signing secrets in this job)
+        run: |
+          corepack enable
+          corepack prepare pnpm@10.24.0 --activate
+          pnpm install --ignore-scripts --frozen-lockfile
+          pnpm check
+      - name: Prepare exact clean commit without executing app code
+        run: >-
+          node tooling/release.mjs prepare
+          --repo "$GITHUB_WORKSPACE" --app "$APP"
+          --repository "$REPOSITORY" --commit "$REVIEWED_COMMIT"
+          --publisher "$PUBLISHER" --out "$RUNNER_TEMP/prepared.json"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: unsigned-${{ github.sha }}
+          path: ${{ runner.temp }}/prepared.json
+          if-no-files-found: error
+          retention-days: 7
+
+  sign:
+    needs: prepare
+    if: github.ref == format('refs/heads/{0}', github.event.repository.default_branch) && inputs.reviewed_commit == github.sha
+    # REQUIRED OUT-OF-BAND: protect this environment with required reviewers,
+    # prevent self-review, and allow ONLY the protected default release branch.
+    environment: release-signing
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      REVIEWED_COMMIT: ${{ github.sha }}
+      REPOSITORY: https://github.com/${{ github.repository }}
+      KEY_ID: ${{ vars.RADIUS_APPS_KEY_ID }}
+      BASELINE_SHA256: ${{ vars.RADIUS_APPS_CATALOG_STATE_SHA256 }}
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+          fetch-depth: 1
+          submodules: false
+          lfs: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '22'
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          name: unsigned-${{ github.sha }}
+          path: ${{ runner.temp }}/unsigned
+      - name: Link reviewed zero-dependency SDK (no package manager or hooks)
+        run: |
+          mkdir -p node_modules/@radius
+          ln -s ../../vendor/apps-sdk node_modules/@radius/apps-sdk
+      - name: Sign data only; key exists only in this step outside checkout/artifacts
+        env:
+          RADIUS_PRIVATE_KEY_PEM: ${{ secrets.RADIUS_APPS_ED25519_PRIVATE_KEY_PEM }}
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs/promises';
+          import { join } from 'node:path';
+          import { spawnSync } from 'node:child_process';
+          const keyPath = join(process.env.RUNNER_TEMP, 'radius-app-signing-key.pem');
+          const pem = process.env.RADIUS_PRIVATE_KEY_PEM;
+          delete process.env.RADIUS_PRIVATE_KEY_PEM;
+          if (!pem) throw new Error('Missing protected signing key');
+          try {
+            await fs.writeFile(keyPath, pem, { mode: 0o600, flag: 'wx' });
+            const result = spawnSync(process.execPath, ['tooling/release.mjs', 'sign',
+              '--repo', process.env.GITHUB_WORKSPACE,
+              '--prepared', join(process.env.RUNNER_TEMP, 'unsigned/prepared.json'),
+              '--repository', process.env.REPOSITORY, '--commit', process.env.REVIEWED_COMMIT,
+              '--key-id', process.env.KEY_ID, '--private-key', keyPath,
+              '--trusted-keys', 'catalog/trusted-keys.json', '--out', join(process.env.RUNNER_TEMP, 'signed')],
+              { stdio: 'inherit', env: process.env });
+            if (result.error || result.status !== 0) process.exitCode = 1;
+          } finally { await fs.rm(keyPath, { force: true }); }
+          NODE
+      - name: Build append-only verified catalog from independently pinned baseline
+        run: >-
+          node tooling/release.mjs catalog
+          --repo "$GITHUB_WORKSPACE" --release "$RUNNER_TEMP/signed"
+          --repository "$REPOSITORY" --commit "$REVIEWED_COMMIT"
+          --trusted-keys catalog/trusted-keys.json --previous catalog
+          --previous-sha256 "$BASELINE_SHA256" --out "$RUNNER_TEMP/catalog"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: reviewed-release-${{ github.sha }}
+          path: |
+            ${{ runner.temp }}/signed
+            ${{ runner.temp }}/catalog
+          if-no-files-found: error
+          retention-days: 30

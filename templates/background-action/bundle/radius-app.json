@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 2,
+  "apiVersion": "radius.apps/1",
+  "id": "dev.radius.template.background-action",
+  "name": "Captured Page",
+  "version": "0.1.0",
+  "description": "Read only the title and URL of an explicitly captured tab, with no UI or persistence.",
+  "worker": { "entry": "worker.js" },
+  "instances": { "mode": "none", "stateSchemaVersion": 1 },
+  "configurationSchema": { "type": "object", "properties": {}, "additionalProperties": false },
+  "requires": {
+    "selectedPage": { "capability": "tabs.read", "scope": { "target": "invocation", "fields": ["title", "url"] } }
+  },
+  "provides": {
+    "actions": {
+      "readPage": {
+        "title": "Read captured page metadata",
+        "contexts": ["tab"],
+        "inputSchema": { "type": "object", "properties": {}, "additionalProperties": false },
+        "outputSchema": {
+          "type": "object",
+          "properties": { "title": { "type": "string" }, "url": { "type": "string" } },
+          "required": ["title", "url"],
+          "additionalProperties": false
+        },
+        "requires": ["selectedPage"],
+        "implementation": { "kind": "handler", "export": "readPage" }
+      }
+    },
+    "views": {},
+    "events": {},
+    "triggers": {}
+  }
+}

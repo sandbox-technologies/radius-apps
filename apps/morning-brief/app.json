@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "slug": "morning-brief",
+  "title": "Morning Brief",
+  "summary": "A restricted scheduled-report contract; native agent generation is currently blocked.",
+  "status": "experimental",
+  "license": "UNLICENSED",
+  "authors": [{ "name": "Radius Apps contributors" }],
+  "categories": ["productivity", "reports"],
+  "screenshots": []
+}

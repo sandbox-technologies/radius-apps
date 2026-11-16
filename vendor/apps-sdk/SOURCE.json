@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "upstream": "sandbox-technologies/inspector",
+  "commit": "5f4588d65ee86d7553234a28a686cb55799b3008",
+  "sourceTreeDirty": false,
+  "apiVersion": "radius.apps/1",
+  "version": "0.1.0-experimental.1",
+  "generator": "packages/radius-app-sdk/scripts/export.mjs",
+  "compilers": {
+    "esbuild": "0.27.7",
+    "typescript": "6.0.3"
+  },
+  "sources": {
+    "radius/src/shared/apps/contract.ts": "77e0349b0efd9235a3e9b3a69ceccf6d5f5395c7cc542d17b78a3eaf45fe6a3a",
+    "radius/src/shared/apps/manifest.ts": "caa712ba7658cefeef8d9a2bea579868b37bde05a90f706a3ae3da39b6056e51",
+    "radius/src/main/features/apps/release-verification.ts": "0af9898190aa0c6d8813fe75dd0cef61bdb2f27abe0b401378caffa17be2e097",
+    "radius/src/main/features/apps/revocation.ts": "c17399ad4f92746e788e72ac033df20d0ef331df838b101753ee09e93fe7d165",
+    "packages/radius-app-sdk/src/view.ts": "a68a074e400591806fca90f565572fe81c3df73497d33ad31d8d7cf2931bb844",
+    "packages/radius-app-sdk/src/index.ts": "d4c5b8cdfbe633a52584ea9ee29ed12eee140bdbe8c40503d45b0f05d9fd1d43",
+    "packages/radius-app-sdk/src/release.ts": "94ad655c4e35d812c35f55558c4db002fb761f1ad636eca982ac191f1fa261c7",
+    "packages/radius-app-sdk/scripts/export.mjs": "3f00cbfb1892cc9a784dc7f325203fb5806229d3487c0b15f921cffd2dd54e7e",
+    "packages/radius-app-sdk/package.json": "fc615d2f7127f6a8a7b31f327c9d30b3eca6a81385fe0318c9fbb2e565f37073"
+  },
+  "outputs": {
+    "index.js": "3d77bf28ca620b8ae291cf090eac7b6a506a792ebf2595ebdc39d1cb035e3d36",
+    "release.js": "0716f425b77a6c717e545ddeb7fc159bd015766ac36cd99669e33ccc67991331",
+    "chunk-SGLIVKCF.js": "3d21a8704e01b86a3f6c7ff3b9c5e248b13deec21455aa7035d801d495759100",
+    "types/contract.d.ts": "7d457787fd7ba9f5254c7d78e3877aed18f6070ed3f53a723192793a23bb2821",
+    "types/manifest.d.ts": "a41281da3cba7b14535443d229f8278c7eee2fdbb089bb75ed9b871bcff51210",
+    "types/release-verification.d.ts": "d5749f76bcdbdecfaf88b7f196f94fdcd35a9c3e3eef3be9d09b6cfd025fca45",
+    "types/revocation.d.ts": "5c38049f05c1ccf9d83e70a3428bcc88fcaca66dbc666a65d599e894209e151f",
+    "view.d.ts": "d6639382763e573d875def1840bc7a692405dd78f70576d9e3023342bbd35288",
+    "index.d.ts": "d029610dd36c4c20429ae2b78d648514c0ace15891674e851b318f1af2f7f039",
+    "release.d.ts": "20f2d76612d498c641ceb08e5e76e6b9686dbc20093a05f36586d87e9542c14f",
+    "package.json": "3d60326bbbb63922456c0ec8955dc05cf76fe6ca4269547dac6eac84f068fbd7",
+    "README.md": "089659497b5eaa20f676b4a534f04bd927d649843cfe1a47ee7b1b9d751d933e"
+  }
+}
