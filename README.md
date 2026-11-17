@@ -38,6 +38,12 @@ installable bundle is `dist/apps/reading-queue`; metadata and tests stay outside
 it. A compatible Radius build with experimental Apps enabled is needed only to
 actually install and use the app. See [getting started](docs/getting-started.md).
 
+For a compatible developer-preview host, use the explicit-profile
+[`radius apps dev` edit/review/reload workflow](docs/development.md). It does not
+approve grants, start agents, or enable schedules. Morning Brief now includes a
+local dashboard for exercising the scoped lifecycle API; real generation remains
+blocked until a budget-enforcing harness is qualified.
+
 Create your own example:
 
 ```sh

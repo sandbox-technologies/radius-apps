@@ -2,6 +2,7 @@
 import {
   APP_API_VERSION,
   APP_CAPABILITIES,
+  APP_GENERATION_LIMITS,
   APP_HOST_EVENTS,
   APP_JSON_LIMITS,
   APP_LIMITS,
@@ -14,7 +15,7 @@ import {
   validateAppBundlePath,
   validateAppSchema,
   validateAppValue
-} from "./chunk-SGLIVKCF.js";
+} from "./chunk-K6GAENIY.js";
 
 // packages/radius-app-sdk/src/view.ts
 function getRadiusApp() {
@@ -27,6 +28,7 @@ function getRadiusApp() {
 export {
   APP_API_VERSION,
   APP_CAPABILITIES,
+  APP_GENERATION_LIMITS,
   APP_HOST_EVENTS,
   APP_JSON_LIMITS,
   APP_LIMITS,

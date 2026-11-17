@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "slug": "morning-brief",
   "title": "Morning Brief",
-  "summary": "A restricted scheduled-report contract; native agent generation is currently blocked.",
+  "summary": "A local brief dashboard with explicit runs, receipts, configuration and saved reports. Native agent generation remains blocked.",
   "status": "experimental",
   "license": "MIT",
   "authors": [{ "name": "Radius Apps contributors" }],

@@ -4,6 +4,7 @@
 var APP_API_VERSION = "radius.apps/1";
 var APP_SCHEMA_VERSION = 2;
 var APP_CAPABILITIES = ["storage.instance", "tabs.read", "tabs.layout", "chat.draft", "activity.read", "agent.run", "artifacts.write", "artifacts.read", "artifacts.open", "events.subscribe"];
+var APP_GENERATION_LIMITS = Object.freeze({ maxTotalTokens: 8192, maxCostUsd: 1 });
 var AppContractError = class extends Error {
   constructor(code, message) {
     super(message);
@@ -547,6 +548,7 @@ export {
   APP_API_VERSION,
   APP_SCHEMA_VERSION,
   APP_CAPABILITIES,
+  APP_GENERATION_LIMITS,
   AppContractError,
   APP_LIMITS,
   APP_JSON_LIMITS,

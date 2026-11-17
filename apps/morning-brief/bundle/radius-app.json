@@ -3,14 +3,15 @@
   "apiVersion": "radius.apps/1",
   "id": "dev.radius.morning-brief",
   "name": "Morning Brief",
-  "version": "1.0.1",
-  "description": "A manually invoked or explicitly scheduled brief from approved previous-local-day activity, published as an immutable HTML artifact.",
+  "version": "1.1.0",
+  "description": "A local dashboard for explicitly running and reviewing briefs from approved previous-local-day conversation metadata. Generation requires an available hard-budget host.",
   "instances": { "mode": "single", "stateSchemaVersion": 1 },
   "configurationSchema": {
     "type": "object",
     "properties": {
       "title": { "type": "string", "minLength": 1, "maxLength": 120 },
-      "timeZone": { "type": "string", "minLength": 1, "maxLength": 100 }
+      "timeZone": { "type": "string", "minLength": 1, "maxLength": 100 },
+      "todayPriorities": { "type": "string", "maxLength": 2000, "description": "Optional user-entered priorities for the next brief, treated as untrusted planning context, not instructions or evidence of past activity. Review or clear these manually; they do not expire automatically." }
     },
     "required": ["title", "timeZone"],
     "additionalProperties": false
@@ -19,6 +20,7 @@
     "activity": { "capability": "activity.read", "scope": { "source": "conversation-metadata", "fields": ["title", "createdAt", "updatedAt"], "days": 1 } },
     "generation": { "capability": "agent.run", "scope": { "profile": "restricted-generation" } },
     "reports": { "capability": "artifacts.write", "scope": { "owner": "self" } },
+    "readReports": { "capability": "artifacts.read", "scope": { "owner": "self" } },
     "openReports": { "capability": "artifacts.open", "scope": { "owner": "self" } }
   },
   "provides": {
@@ -43,7 +45,7 @@
         }
       }
     },
-    "views": {},
+    "views": { "main": { "title": "Morning Brief", "entry": "ui/index.html", "placement": "tab" } },
     "events": {},
     "triggers": {
       "morning": { "kind": "schedule", "action": "generate", "input": {}, "suggested": { "localTime": "08:30" } }
