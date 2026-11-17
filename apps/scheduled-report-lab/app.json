@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "slug": "scheduled-report-lab",
+  "title": "Scheduled Report Lab",
+  "summary": "A deterministic synthetic HTML report for explicit scheduler and artifact testing; not AI generation.",
+  "status": "experimental",
+  "license": "MIT",
+  "authors": [{ "name": "Radius Apps contributors" }],
+  "categories": ["reports", "testing"],
+  "screenshots": []
+}
