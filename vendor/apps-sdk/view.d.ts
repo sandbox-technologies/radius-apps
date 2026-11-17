@@ -1,5 +1,6 @@
-import type { AppAction, AppManifest, JsonObject, JsonValue } from './types/contract.js';
-export interface AppRunReceipt {
+import type { AppAction, AppArtifact, AppGenerationBudget, AppInstance, AppManifest, AppTriggerBinding, JsonObject, JsonValue } from './types/contract.js';
+/** Public run status only: no input, configuration, context, result or exception text. */
+export interface AppRunMetadata {
     id: string;
     installationId: string;
     instanceId?: string;
@@ -8,7 +9,8 @@ export interface AppRunReceipt {
     createdAt: string;
     deadline: string;
     finishedAt?: string;
-    result?: JsonValue;
+    /** Host-owned admission ceiling for agent runs, not measured usage; absent on older receipts and workers. */
+    usageBudget?: Readonly<AppGenerationBudget>;
     error?: {
         code: string;
     };
@@ -17,6 +19,18 @@ export interface AppRunReceipt {
         status: 'committed' | 'failed' | 'unknown';
         at: string;
     }[];
+}
+export interface AppRunReceipt extends AppRunMetadata {
+    result?: JsonValue;
+}
+export type AppInstanceMetadata = Omit<AppInstance, 'state'>;
+export type AppArtifactMetadata = Omit<AppArtifact, 'html'>;
+export type AppTriggerBindingMetadata = Readonly<AppTriggerBinding>;
+export interface AppGenerationDescription {
+    profile: 'restricted-generation';
+    available: boolean;
+    usageBudget: Readonly<AppGenerationBudget>;
+    unavailable: string | null;
 }
 export interface AppDescription {
     apiVersion: 'radius.apps/1';
@@ -33,6 +47,8 @@ export interface AppDescription {
     manifest: AppManifest;
     limits: Readonly<Record<string, number>>;
     executionProfiles: string[];
+    /** Additive host capability disclosure; older Radius versions omit it. */
+    generation?: AppGenerationDescription;
     actions: Record<string, AppAction & {
         unavailable: string | null;
     }>;
@@ -48,8 +64,22 @@ export interface AppEventPage {
     sequence: number;
     gap: boolean;
 }
-/** Host-injected, document-bound API. It cannot install, grant or pick another owner. */
-export interface RadiusAppView {
+/** Optional extension on older bridges. All owners come from the host, never method arguments. */
+export interface RadiusAppViewLifecycle {
+    /** Bound instance metadata (including configuration), or null for an unbound/stateless view. No state payload. */
+    getInstance(): Promise<AppInstanceMetadata | null>;
+    listRuns(): Promise<AppRunMetadata[]>;
+    cancelRun(runId: string): Promise<AppRunMetadata>;
+    /** Requires an existing artifacts.read grant. No artifact HTML or storage paths. */
+    listArtifacts(): Promise<AppArtifactMetadata[]>;
+    /** Requires an existing artifacts.open grant; cross-instance IDs are rejected by the host. */
+    openArtifact(artifactId: string): Promise<JsonValue>;
+    /** Read-only snapshots of owned bindings; no scheduling or configuration authority. */
+    listTriggers(): Promise<AppTriggerBindingMetadata[]>;
+}
+/** Host-injected, document-bound API. It cannot install, grant or pick another owner.
+ * The four original methods remain required; feature-check lifecycle methods on older Radius versions. */
+export interface RadiusAppView extends Partial<RadiusAppViewLifecycle> {
     describe(): Promise<AppDescription>;
     invoke(action: string, input: JsonObject, options?: {
         contextHandle?: string;

@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 2,
+  "apiVersion": "radius.apps/1",
+  "id": "dev.radius.scheduled-report-lab",
+  "name": "Scheduled Report Lab",
+  "version": "0.1.0",
+  "description": "Publish deterministic, synthetic HTML reports for explicit scheduler and artifact testing. No AI generation or live data sources.",
+  "worker": { "entry": "worker.js" },
+  "instances": { "mode": "multiple", "stateSchemaVersion": 1 },
+  "configurationSchema": {
+    "type": "object",
+    "properties": {
+      "title": { "type": "string", "minLength": 1, "maxLength": 80 },
+      "timeZone": { "type": "string", "minLength": 1, "maxLength": 100 }
+    },
+    "required": ["title", "timeZone"],
+    "additionalProperties": false
+  },
+  "requires": {
+    "reports": { "capability": "artifacts.write", "scope": { "owner": "self" } },
+    "openReports": { "capability": "artifacts.open", "scope": { "owner": "self" } }
+  },
+  "provides": {
+    "actions": {
+      "generate": {
+        "title": "Generate synthetic test report",
+        "description": "Render supplied synthetic fixtures or bundled defaults and publish one HTML artifact; never invoke a model or open a tab.",
+        "contexts": ["app"],
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "note": { "type": "string", "maxLength": 500 },
+            "items": {
+              "type": "array",
+              "maxItems": 20,
+              "items": {
+                "type": "object",
+                "properties": {
+                  "label": { "type": "string", "minLength": 1, "maxLength": 120 },
+                  "value": { "type": "integer", "minimum": 0, "maximum": 1000000 }
+                },
+                "required": ["label", "value"],
+                "additionalProperties": false
+              }
+            }
+          },
+          "additionalProperties": false
+        },
+        "outputSchema": {
+          "type": "object",
+          "properties": { "artifactId": { "type": "string", "minLength": 1 } },
+          "required": ["artifactId"],
+          "additionalProperties": false
+        },
+        "requires": ["reports"],
+        "implementation": { "kind": "handler", "export": "generate" }
+      }
+    },
+    "views": {},
+    "events": {},
+    "triggers": {
+      "daily": { "kind": "schedule", "action": "generate", "input": {}, "suggested": { "localTime": "08:30" } }
+    }
+  }
+}

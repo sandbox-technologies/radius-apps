@@ -10,8 +10,13 @@ The source, reference apps, templates and generated SDK are licensed under
 [MIT](LICENSE); each app/template bundle includes its own license notice.
 
 App distribution remains experimental. No signed/catalog release or catalog
-deployment exists, no trusted publisher keys are configured, and no live Radius
-UI validation has been completed. Public source publication does not remove
+deployment exists, no production trusted publisher keys are configured, and the
+required isolated-app-tab host API has not been released. A paired local
+Radius/Electron candidate now passes native and packaged acceptance for explicit
+installation, app UI/CLI state, native split, synthetic scheduled HTML delivery,
+restart, update and revocation. This is local experimental-host evidence, not a
+signed product release or proof of real agent generation. Public source
+publication does not remove
 those distribution gates or enable blocked host capabilities.
 
 ## Start here
@@ -33,6 +38,12 @@ installable bundle is `dist/apps/reading-queue`; metadata and tests stay outside
 it. A compatible Radius build with experimental Apps enabled is needed only to
 actually install and use the app. See [getting started](docs/getting-started.md).
 
+For a compatible developer-preview host, use the explicit-profile
+[`radius apps dev` edit/review/reload workflow](docs/development.md). It does not
+approve grants, start agents, or enable schedules. Morning Brief now includes a
+local dashboard for exercising the scoped lifecycle API; real generation remains
+blocked until a budget-enforcing harness is qualified.
+
 Create your own example:
 
 ```sh
@@ -50,8 +61,12 @@ pnpm app build my-app
 - [Morning Brief](apps/morning-brief/README.md): scheduled-agent and saved-HTML
   artifact design. Generation remains unavailable until the host can enforce its
   usage budget. Installing never starts it or enables a schedule.
+- [Scheduled Report Lab](apps/scheduled-report-lab/README.md): deterministic,
+  explicitly synthetic HTML used to test scheduling and artifact publication
+  without model calls. Publication and background opening are separate grants;
+  this is not an AI Morning Brief or its fallback.
 
-All are marked experimental pending native Radius validation. Tests with mock
+All remain experimental pending release-grade Radius validation. Tests with mock
 host calls do not certify Electron isolation or production availability.
 
 ## What belongs here

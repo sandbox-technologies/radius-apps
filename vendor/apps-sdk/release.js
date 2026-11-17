@@ -8,7 +8,7 @@ import {
   parseAppJson,
   parseAppManifest,
   validateAppBundlePath
-} from "./chunk-SGLIVKCF.js";
+} from "./chunk-K6GAENIY.js";
 
 // radius/src/main/features/apps/release-verification.ts
 import { createHash, createPublicKey, verify } from "node:crypto";

@@ -139,6 +139,23 @@ methods are:
 - `events(after?)` returns `{ sequence, gap, events }`. Advance the cursor from
   `sequence`; refresh authoritative state after a gap or relevant newer event.
 
+The developer-preview host also provides these optional lifecycle methods. Check
+each method before using it; an older four-method bridge remains valid:
+
+- `getInstance()` returns the bound instance's configuration and revisions, not
+  its storage value; an unbound/stateless view receives `null`.
+- `listRuns()` returns owned run metadata, not result bodies or private inputs.
+- `cancelRun(runId)` cancels only a run within the view's installation/instance.
+- `listArtifacts()` returns owned report metadata with an approved
+  `artifacts.read` requirement. It does not return HTML or filesystem paths.
+- `openArtifact(artifactId)` requires the separate `artifacts.open` grant.
+- `listTriggers()` reads owned bindings; it cannot configure or enable them.
+
+These methods do not accept installation IDs, instance IDs, or principals.
+Radius binds ownership to the live app document and invalidates it on revocation.
+See [Morning Brief](../apps/morning-brief/README.md) and the
+[developer-preview workflow](development.md).
+
 Use bounded polling for unfinished runs; a UI timeout is not cancellation.
 Surface the run ID and error code, inspect effects, and do not automatically
 replay ambiguous work. The public view receipt intentionally exposes less than
@@ -160,6 +177,11 @@ scripts, and styles; render untrusted data as text. Use the shared 80 ms timing
 token for short interactions, honor Reduced Motion, and never treat animation
 duration as an input delay or continuous-pointer threshold.
 
+The current host pins the view to its exact entry URL. Do not use path or hash
+navigation for in-app routing: even a fragment change can revoke the document.
+Use in-memory UI state, and intercept local guidance/skip links to scroll and
+focus without changing the URL. Morning Brief demonstrates this behavior.
+
 ## Bundles, instances, and agents
 
 Every referenced worker, view, prompt, and icon must be present in `bundle/`.
@@ -172,9 +194,39 @@ Instance mode is `none`, `single`, or `multiple`. Stateless (`none`) apps cannot
 request instance storage. Other modes need explicitly created instances; an
 installation or opened document is not implicit consent to create one.
 
+Users can edit non-secret instance configuration through native management or
+the public administrative `instances.configure` operation. It requires
+`installationId`, `instanceId`, `expectedConfigurationRevision`, and the complete
+`configuration` object. Conflicting revisions fail; changed configuration
+disables that instance's trigger bindings until explicitly reapproved. Existing
+state/artifacts survive, and already admitted runs retain their original input
+and configuration snapshot. Views cannot perform this administrative operation.
+Management binds trigger previews/approvals to `expectedConfigurationRevision`;
+stale approvals fail instead of silently re-enabling a trigger after an edit.
+Programmatic callers can include this guard in `triggers.preview` and
+`triggers.configure`. The runtime also rejects configuration changes racing a
+pending trigger decision, including callers that omit the optional guard.
+
 Agent actions use the `restricted-generation` profile, a local prompt,
 explicit approved context selectors, and an `html-artifact` result containing
 `artifactId`. Native generation is currently unavailable because an enforceable
 profile budget is not verified. Triggers are declarations, not enabled bindings.
 Installation never starts an agent or approves a schedule. See
 [permissions](permissions.md) and [testing](testing.md) for the remaining gates.
+
+The developer-preview host gives the restricted harness one structured,
+untrusted JSON context with `schemaVersion: 1`, `logicalTime`, `configuration`,
+`input`, and `activity`. Each activity entry contains `requirement`, `since`,
+`until`, `fields`, and projected `records`. It exposes only the approved metadata
+fields; no implicit transcripts, page contents, URLs, local files, or current
+browser focus are added. The previous-day range uses the admitted logical time
+and configured timezone, including daylight-saving boundaries. Prompt plus
+serialized context share the host's input-size ceiling; all bindings share a
+500-record maximum.
+
+`describe().generation` discloses host capability availability separately from
+missing app grants, and reports the required `usageBudget`. Agent run receipts
+snapshot this budget. The current ceilings are 8,192 total tokens and USD 1;
+these are admission limits, **not actual usage or evidence of enforcement**.
+Generation remains unavailable unless the host's selected harness can enforce
+both before spending. Older hosts may omit the added description/receipt fields.

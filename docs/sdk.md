@@ -1,6 +1,6 @@
 # Public SDK dependency
 
-`@radius/apps-sdk` version `0.1.0-experimental.2` is installed from
+`@radius/apps-sdk` version `0.1.0-experimental.3` is installed from
 `vendor/apps-sdk` with a locked local file dependency. It has no npm runtime
 dependencies, package-manager hooks, network fetches or Radius source imports.
 The generated ESM is readable. Its default entry is browser-safe; the `release`
@@ -8,10 +8,15 @@ entry uses Node crypto for offline bundle/signature verification.
 
 The SDK is MIT-licensed and includes the generated
 [license notice](../vendor/apps-sdk/LICENSE). Its clean upstream export is from
-commit `4384b70d17709f32bcd41ff7a461d05dde294ec9`; the versioned
+commit `6719a8879a6741fb2ae99d7dd72d0329c2acd67a`; the versioned
 [provenance record](../vendor/apps-sdk/SOURCE.json) identifies its source and output
 hashes. SDK licensing does not make the experimental host's blocked generation
 or draft capabilities available.
+
+This preview adds optional owner-scoped view lifecycle methods, generation
+availability/budget descriptions, and admitted run-budget metadata. Legacy
+four-method bridges remain valid; apps feature-check the optional methods.
+See [the public contract](app-contract.md) and [developer workflow](development.md).
 
 The source of truth remains Radius. The upstream
 `packages/radius-app-sdk/scripts/export.mjs` bundles the authoritative schema,

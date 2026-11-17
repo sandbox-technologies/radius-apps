@@ -104,8 +104,12 @@ bridge honestly; do not inject a success fallback into the installed app.
 - Focus Layout: split calls and errors; intended future split/draft sequencing
   and partial failure with a hypothetical mock draft port. The real draft action
   remains blocked before admission. A passing mock does not remove that blocker.
-- Morning Brief: manifest, prompt, requirements, schedule declaration, and
-  artifact-ID result schema only. No model calls or reports are generated.
+- Morning Brief: manifest/prompt/requirements, configuration compatibility and
+  bounds, disabled schedule declaration, and artifact-ID schema; actual view
+  controller tests with trusted DOM/SDK doubles cover availability, grants,
+  explicit invocation, receipts/cancellation, bounded checking, report access,
+  lifecycle teardown, and older-host behavior. No real model calls or generated
+  reports are claimed by these unit tests.
 - Interactive/background templates: real worker functions with local doubles;
   the interactive template also exercises its view contract.
 - Scheduled-agent template: offline descriptor/prompt checks only. No provider,

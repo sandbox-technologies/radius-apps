@@ -10,6 +10,16 @@ export type JsonObject = {
 export type AppSchema = Record<string, unknown>;
 export declare const APP_CAPABILITIES: readonly ["storage.instance", "tabs.read", "tabs.layout", "chat.draft", "activity.read", "agent.run", "artifacts.write", "artifacts.read", "artifacts.open", "events.subscribe"];
 export type AppCapability = typeof APP_CAPABILITIES[number];
+/** Host-owned pre-spend ceilings, not caller options or measured usage. A host
+ * must keep generation unavailable unless its selected harness enforces both. */
+export declare const APP_GENERATION_LIMITS: Readonly<{
+    maxTotalTokens: 8192;
+    maxCostUsd: 1;
+}>;
+export interface AppGenerationBudget {
+    maxTotalTokens: number;
+    maxCostUsd: number;
+}
 export interface AppRequirement {
     capability: AppCapability;
     scope: JsonObject;
@@ -170,6 +180,8 @@ export interface AppRun {
     deadline: string;
     finishedAt?: string;
     logicalTime: string;
+    /** Admission snapshot for agent actions; absent on older receipts and workers. */
+    usageBudget?: AppGenerationBudget;
     trigger?: {
         bindingId: string;
         revision: number;

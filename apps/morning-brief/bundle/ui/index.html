@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <title>Morning Brief</title>
+    <link rel="stylesheet" href="styles.css">
+    <script type="module" src="app.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to brief dashboard</a>
+    <div class="shell">
+      <header class="masthead">
+        <div class="brand"><span class="sun" aria-hidden="true"></span><span>Morning Brief <small>RADIUS APP · EXPERIMENTAL</small></span></div>
+        <a href="#native-management">Native management <span aria-hidden="true">↗</span></a>
+      </header>
+
+      <main id="main" tabindex="-1">
+        <section class="intro" aria-labelledby="page-title">
+          <p class="eyebrow">A considered start</p>
+          <h1 id="page-title">A little context.<br>A clearer day.</h1>
+          <p class="lede">A brief from yesterday’s conversation titles and timestamps, with room for your stated priorities. No transcripts. No automatic runs.</p>
+        </section>
+
+        <div class="dashboard">
+          <div class="primary-column">
+            <section class="panel" aria-labelledby="availability-title">
+              <div class="section-heading"><h2 id="availability-title">Your next brief</h2><span id="availability-badge" class="badge" data-tone="neutral">Checking host</span></div>
+              <p id="availability" role="status" aria-live="polite">Checking the installed app’s capabilities…</p>
+              <p class="muted">This preview requires a qualified runner with enforceable hard pre-spend limits. Host availability and your approved grants are separate requirements.</p>
+              <p id="host-generation" class="muted">Host generation availability and reason have not been reported yet.</p>
+              <h3>Required ceilings · not actual usage</h3>
+              <dl id="host-budget" class="facts"></dl>
+              <p class="fine-print">These are host-reported admission requirements, not measured usage or proof that a runner enforces them. Missing values remain unknown.</p>
+              <div class="actions">
+                <button id="run-now" class="primary" type="button" disabled aria-describedby="availability">Run now <span aria-hidden="true">↗</span></button>
+                <button id="refresh" type="button" disabled>Refresh status</button>
+              </div>
+              <p class="fine-print">One explicit run. Publishing a report does not open it or enable a schedule.</p>
+              <ul id="capabilities" class="capabilities" aria-label="Requested capability grants"></ul>
+              <p id="notice" class="notice" role="status" aria-live="polite"></p>
+            </section>
+
+            <section class="panel" aria-labelledby="receipt-title">
+              <div class="section-heading"><h2 id="receipt-title">Run receipt</h2><span id="run-status" class="badge" data-tone="neutral">No run selected</span></div>
+              <p id="run-message" role="status" aria-live="polite">Choose Run now when available, or inspect a recent run below.</p>
+              <dl id="receipt" class="facts"></dl>
+              <h3>Admitted ceilings · not actual usage</h3>
+              <dl id="receipt-budget" class="facts"></dl>
+              <p class="fine-print">Only this receipt’s budget is shown. It is never filled from current host defaults or treated as tokens used or money spent.</p>
+              <ul id="effects" class="effects" aria-label="Reported run effects"></ul>
+              <div class="actions">
+                <button id="check-run" type="button" disabled>Check receipt</button>
+                <button id="cancel-run" type="button" disabled>Cancel run</button>
+                <button id="stop-checking" class="quiet" type="button" disabled>Stop checking</button>
+              </div>
+              <p id="cancel-help" class="fine-print">Cancellation needs the scoped host method. <a href="#native-management">Native management guidance</a>.</p>
+              <p class="fine-print">Stopping checks or closing this view does not cancel a run. Cancellation cannot undo committed effects.</p>
+              <h3>Recent runs</h3>
+              <p id="runs-note" class="muted">Waiting for host discovery.</p>
+              <ol id="runs" class="item-list" aria-label="Recent run receipts"></ol>
+            </section>
+
+            <section class="panel" aria-labelledby="artifacts-title">
+              <div class="section-heading"><h2 id="artifacts-title">Saved briefs</h2><span class="eyebrow">Separate permission</span></div>
+              <p id="artifacts-note" class="muted">Saved reports need the optional readReports grant. Opening additionally needs openReports.</p>
+              <ol id="artifacts" class="item-list" aria-label="Saved brief artifacts"></ol>
+              <p id="artifact-status" role="status" aria-live="polite"></p>
+              <p class="fine-print">Reports open only after you choose Open report. Reading or opening a saved report never invokes generation.</p>
+            </section>
+          </div>
+
+          <aside class="secondary-column" aria-label="Instance and permissions">
+            <section class="panel config-panel" aria-labelledby="config-title">
+              <p class="eyebrow">Explicit by design</p>
+              <h2 id="config-title">This instance</h2>
+              <p id="instance-note" class="muted">Configuration is read from the bound instance, never inferred from your clock, profile, or current tab.</p>
+              <dl id="configuration" class="facts stacked">
+                <dt>Title</dt><dd>Not available yet</dd>
+                <dt>Timezone</dt><dd>Not available yet</dd>
+                <dt>Today’s priorities</dt><dd>Not available yet</dd>
+              </dl>
+              <p class="fine-print">Priorities are optional (up to 2,000 code points) and stay saved until you edit or clear them. They are not automatically refreshed each day.</p>
+              <p class="fine-print">Saving configuration changes disables existing schedule bindings until you explicitly reapprove them. Already admitted runs keep their original configuration.</p>
+              <a href="#native-management">Change configuration in Radius <span aria-hidden="true">↗</span></a>
+            </section>
+
+            <section class="panel" aria-labelledby="schedule-title">
+              <h2 id="schedule-title">Schedule</h2>
+              <p id="schedule-note" class="muted">The manifest suggests 08:30. This is not an enabled schedule; actual bindings have not been read.</p>
+              <ul id="schedules" class="item-list" aria-label="Explicit schedule bindings"></ul>
+              <p class="fine-print">Radius must be running. A binding never overrides capability availability. This view cannot create, edit, or enable schedules.</p>
+              <a href="#native-management">Manage schedules in Radius <span aria-hidden="true">↗</span></a>
+            </section>
+
+            <section class="scope-note" aria-labelledby="scope-title">
+              <h2 id="scope-title">A deliberately small source</h2>
+              <p>One previous local calendar day of conversation metadata: <code>title</code>, <code>createdAt</code>, <code>updatedAt</code>.</p>
+              <p>No transcripts, messages, browsing history, page contents, or URLs. A title is a topic cue, not proof of what was said or done.</p>
+            </section>
+          </aside>
+        </div>
+
+        <section id="native-management" class="management panel" aria-labelledby="management-title" tabindex="-1">
+          <p class="eyebrow">You stay in control</p>
+          <h2 id="management-title">Manage in Radius</h2>
+          <p>Use Radius’s native Apps management for this installation and its explicitly selected instance. Review the bundle and grant only the capabilities you want. Create or edit the instance’s title, IANA timezone, and optional priorities there.</p>
+          <p>Schedule creation, configuration edits, and grant approval are user-only operations—not app-view methods. For a schedule, explicitly choose the instance, timezone, local time, and delivery policy. No binding is created or enabled here.</p>
+          <p>On older hosts, inspect or cancel a run and review/open saved artifacts in native management. Use the installation, instance, run, or artifact IDs shown here. Opening needs a separate <code>artifacts.open</code> grant; it does not regenerate a report.</p>
+          <p class="fine-print">This is guidance, not a native-navigation link: the public SDK has no management deep-link method. No administrative bridge is used.</p>
+          <dl id="identity" class="facts"></dl>
+        </section>
+      </main>
+      <footer>Local interface. Explicit actions. Host-enforced permissions.</footer>
+      <noscript>This view needs JavaScript and the installed Radius app bridge. Nothing runs automatically.</noscript>
+    </div>
+  </body>
+</html>
